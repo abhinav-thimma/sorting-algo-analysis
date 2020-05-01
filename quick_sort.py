@@ -4,14 +4,17 @@ sys.setrecursionlimit(1500)
 
 class Sort:
     array_access_count = 0
-    def quick_sort(self, nums, start, end):
+    def quick_sort(self, nums):
+        return self.sort(nums, 0, len(nums) - 1)
+
+    def sort(self, nums, start, end):
         if(len(nums) <= 1):
             return nums
 
         if(start < end):
             pivotPosition = self.partition(nums, start, end)
-            self.quick_sort(nums, start, pivotPosition - 1)
-            self.quick_sort(nums, pivotPosition +1, end)
+            self.sort(nums, start, pivotPosition - 1)
+            self.sort(nums, pivotPosition +1, end)
 
         return nums, self.array_access_count
 

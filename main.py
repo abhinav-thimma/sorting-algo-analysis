@@ -44,17 +44,16 @@ def time_sort_algorithms(sort_map):
         t = time.process_time()
         access_count = 0
         for arr in arrays:
-            print(arr)
-            if(name == 'quick_sort'):
-                sorted_arr, count = sort_function(arr, 0, len(arr) - 1)
-                access_count = count
-                check_sorting(sorted_arr)
-            else:
-                sorted_arr, count = sort_function(arr)
-                access_count = count
-                check_sorting(sorted_arr)
+            sorted_arr, count = sort_function(arr)
+            access_count = count
+            check_sorting(sorted_arr)
         t1 = time.process_time()
-        print('time for '+ name +': ' + str(t1 - t) + '  access-count: ' + str(access_count))
+        print('Time for '+ name +': ' + str(t1 - t) + '  Array access count: ' + str(access_count))
+
+def test_sort_algorithm(sort_function):
+    array = get_random_arrays(1, 1000)[0]
+    sorted_array, access_count = sort_function(array)
+    print(str(check_sorting(sorted_array)) + " \n Array access count: " + str(access_count))
 
 sort_map = {}
 sort_map['selection_sort'] = SelectionSort().selection_sort
@@ -66,3 +65,4 @@ sort_map['merge_sort'] = MergeSort().merge_sort
 sort_map['quick_sort'] = QuickSort().quick_sort
 
 time_sort_algorithms(sort_map)
+# test_sort_algorithm(QuickSort().quick_sort)
