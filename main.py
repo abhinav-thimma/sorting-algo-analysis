@@ -19,7 +19,7 @@ def check_sorting(nums):
 def get_random_arrays(no_of_arrays, size_of_array):
     arrays = []
     for i in range(no_of_arrays):
-        nums = [np.random.randint(0, 100000) for i in range(size_of_array)]
+        nums = [np.random.randint(-100000, 100000) for i in range(size_of_array)]
         arrays.append(nums)
     return arrays
 
@@ -39,7 +39,7 @@ def compare_sorts(sort_function1, sort_function2):
 
 
 def time_sort_algorithms(sort_map):
-    arrays = get_random_arrays(1000, 1000)
+    arrays = get_random_arrays(100, 1000)
     for name,sort_function in sort_map.items():
         t = time.process_time()
         access_count = 0
@@ -48,12 +48,16 @@ def time_sort_algorithms(sort_map):
             access_count = count
             check_sorting(sorted_arr)
         t1 = time.process_time()
-        print('Time for '+ name +': ' + str(t1 - t) + '  Array access count: ' + str(access_count))
+        print(f'Time for {name}: {str(t1 - t)}  Array access count: {str(access_count)}')
 
-def test_sort_algorithm(sort_function):
-    array = get_random_arrays(1, 1000)[0]
-    sorted_array, access_count = sort_function(array)
-    print(str(check_sorting(sorted_array)) + " \n Array access count: " + str(access_count))
+def test_sort_algorithm(sort_function, steps):
+    for i in range(steps):
+        t = time.process_time()
+        array = get_random_arrays(1, 100*(10**i))[0]
+        sorted_array, access_count = sort_function(array)
+        check_sorting(sorted_array)
+        t1 = time.process_time()
+        print(f'Array size: {len(array)} Array access count: {str(access_count)}  time taken: {str(t1 - t)}')
 
 sort_map = {}
 sort_map['selection_sort'] = SelectionSort().selection_sort
@@ -65,4 +69,4 @@ sort_map['merge_sort'] = MergeSort().merge_sort
 sort_map['quick_sort'] = QuickSort().quick_sort
 
 time_sort_algorithms(sort_map)
-# test_sort_algorithm(QuickSort().quick_sort)
+# test_sort_algorithm(QuickSort().quick_sort, 5)
