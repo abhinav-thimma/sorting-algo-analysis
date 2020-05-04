@@ -5,6 +5,7 @@ from radix_sort import Sort  as RadixSort
 from merge_sort import Sort  as MergeSort
 from quick_sort import Sort  as QuickSort
 from cocktail_sort import Sort as CocktailSort
+from gnome_sort import Sort as GnomeSort
 
 import numpy as np 
 import time
@@ -67,6 +68,7 @@ sort_map['cocktail_sort'] = CocktailSort().cocktail_sort
 sort_map['radix_sort'] = RadixSort().radix_sort
 sort_map['merge_sort'] = MergeSort().merge_sort
 sort_map['quick_sort'] = QuickSort().quick_sort
+sort_map['gnome_sort'] = GnomeSort().gnome_sort
 
 time_sort_algorithms(sort_map)
 # test_sort_algorithm(QuickSort().quick_sort, 5)
