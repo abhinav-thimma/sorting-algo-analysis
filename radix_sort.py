@@ -8,6 +8,7 @@ class Sort:
         return strNum
 
     def radix_sort(self, nums):
+        self.array_access_count = 0
         # splitting the array into positive and negative arrays
         positiveArr, negativeArr = [num for num in nums if num >= 0], [-num for num in nums if num < 0]
 
@@ -21,7 +22,7 @@ class Sort:
         sortedNegativeArr = [-num for num in sortedNegativeArr]
         sortedNegativeArr.extend(sortedPositiveArr)
 
-        return sortedNegativeArr, posAccess + negAccess + negArrLen
+        return sortedNegativeArr, self.array_access_count#posAccess + negAccess + negArrLen
 
     def sort(self, nums):
         # step 1: find the max num

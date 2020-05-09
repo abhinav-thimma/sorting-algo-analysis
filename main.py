@@ -47,7 +47,7 @@ def time_sort_algorithms(sort_map):
         access_count = 0
         for arr in arrays:
             sorted_arr, count = sort_function(arr)
-            access_count = count
+            access_count += count
             check_sorting(sorted_arr)
         t1 = time.process_time()
         print(f'Time for {name}: {str(t1 - t)}  Array access count: {str(access_count)}')
@@ -68,7 +68,8 @@ sort_map['insertion_sort'] = InsertionSort().insertion_sort
 sort_map['cocktail_sort'] = CocktailSort().cocktail_sort
 sort_map['radix_sort'] = RadixSort().radix_sort
 sort_map['merge_sort'] = MergeSort().merge_sort
-sort_map['quick_sort'] = QuickSort().quick_sort
+# sort_map['quick_sort_recursive'] = QuickSort().quick_sort_recursive
+sort_map['quick_sort_iterative'] = QuickSort().quick_sort_iterative
 sort_map['gnome_sort'] = GnomeSort().gnome_sort
 sort_map['shell_sort'] = ShellSort().shell_sort
 
