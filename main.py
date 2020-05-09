@@ -46,11 +46,11 @@ def time_sort_algorithms(sort_map):
         t = time.process_time()
         access_count = 0
         for arr in arrays:
-            sorted_arr, count = sort_function(arr)
+            sorted_arr, count = sort_function(arr.copy())
             access_count += count
             check_sorting(sorted_arr)
         t1 = time.process_time()
-        print(f'Time for {name}: {str(t1 - t)}  Array access count: {str(access_count)}')
+        print(f'Time for {name}\t: {str(t1 - t)}\t  Array access count: {str(access_count)}')
 
 def test_sort_algorithm(sort_function, steps):
     for i in range(steps):
