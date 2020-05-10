@@ -18,15 +18,42 @@ def check_sorting(nums):
             return None
     return nums
 
-def get_random_arrays(no_of_arrays, size_of_array):
-    arrays = []
-    for i in range(no_of_arrays):
-        nums = [np.random.randint(-100000, 100000) for i in range(size_of_array)]
-        arrays.append(nums)
-    return arrays
+class ArrayGenerator:
+    def __init__(self, min = -10000, max = 10000):
+        self.min = min
+        self.max = max
+        
+    '''
+    generates arrays with random unordered elements
+    '''
+    def get_random_arrays(self, no_of_arrays, size_of_array):
+        arrays = []
+        for i in range(no_of_arrays):
+            nums = [np.random.randint(self.min, self.max) for i in range(size_of_array)]
+            arrays.append(nums)
+        return arrays
+
+    '''
+    generates arrays with sorted random elements
+    '''
+    def get_random_sorted_arrays(self, no_of_arrays, size_of_array):
+        arrays = []
+        for i in range(no_of_arrays):
+            nums = [np.random.randint(self.min, self.min + np.random.randint(0, 50))]
+            for pos in range(size_of_array - 1):
+                nums.append(np.random.randint(nums[pos], nums[pos] + np.random.randint(0, 50) + 1))
+            arrays.append(nums)
+        return arrays
+
+    def get_linear_arrays(self, no_of_arrays, size_of_arrays):
+        arrays = []
+        for i in range(no_of_arrays):
+            nums = [num for num in range(0, size_of_arrays)]
+            arrays.append(nums)
+        return arrays
 
 def compare_sorts(sort_function1, sort_function2):
-    arrays = get_random_arrays(1000, 1000)
+    arrays = ArrayGenerator().get_random_arrays(1000, 1000)
     
     t = time.process_time()
     for arr in arrays:
@@ -41,7 +68,7 @@ def compare_sorts(sort_function1, sort_function2):
 
 
 def time_sort_algorithms(sort_map):
-    arrays = get_random_arrays(100, 1000)
+    arrays = ArrayGenerator().get_random_arrays(100, 1000)
     for name,sort_function in sort_map.items():
         t = time.process_time()
         access_count = 0
@@ -55,7 +82,7 @@ def time_sort_algorithms(sort_map):
 def test_sort_algorithm(sort_function, steps):
     for i in range(steps):
         t = time.process_time()
-        array = get_random_arrays(1, 100*(10**i))[0]
+        array = ArrayGenerator().get_random_arrays(1, 100*(10**i))[0]
         sorted_array, access_count = sort_function(array)
         check_sorting(sorted_array)
         t1 = time.process_time()
