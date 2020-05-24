@@ -9,6 +9,8 @@ from sorting_algorithms.quick_sort import Sort  as QuickSort
 from sorting_algorithms.cocktail_sort import Sort as CocktailSort
 from sorting_algorithms.gnome_sort import Sort as GnomeSort
 from sorting_algorithms.shell_sort import Sort as ShellSort
+from sorting_algorithms.tree_sort import Sort as TreeSort
+from sorting_algorithms.tim_sort import Sort as TimSort
 
 import time
 
@@ -24,13 +26,13 @@ def compare_sorts(sort_function1, sort_function2):
     
     t = time.process_time()
     for arr in arrays:
-        check_sorting(sort_function1(arr))
+        check_sorting(sort_function1(arr.copy())[0])
     t1 = time.process_time()
-    for arr in arrays:
-        check_sorting(sort_function2(arr))
-    t2 = time.process_time()
-
     print('time for algorithm 1: ' + str(t1 - t))
+
+    for arr in arrays:
+        check_sorting(sort_function2(arr.copy())[0])
+    t2 = time.process_time()
     print('time for algorithm 2: ' + str(t2 - t1))
 
 
@@ -79,6 +81,8 @@ sort_map['merge_sort'] = MergeSort().merge_sort
 sort_map['quick_sort_iterative'] = QuickSort().quick_sort_iterative
 sort_map['gnome_sort'] = GnomeSort().gnome_sort
 sort_map['shell_sort'] = ShellSort().shell_sort
+sort_map['tree_sort'] = TreeSort().tree_sort
+sort_map['time_sort'] = TimSort().tim_sort
 
 array_gen_map = {}
 array_gen_map['random'] = ArrayGenerator().get_random_arrays
@@ -86,5 +90,6 @@ array_gen_map['random_sorted'] = ArrayGenerator().get_random_sorted_arrays
 array_gen_map['linear'] = ArrayGenerator().get_linear_arrays
 
 # time_sort_algorithms(sort_map)
-# test_sort_algorithm_raw(BubbleSort().bubble_sort, 2)
-# test_sort_algorithm_with_generated_arrays(BubbleSort().bubble_sort, array_gen_map)
+# test_sort_algorithm_raw(TimSort().tim_sort, 5)
+# test_sort_algorithm_with_generated_arrays(TimSort().tim_sort, array_gen_map)
+# compare_sorts(QuickSort().quick_sort_iterative, TimSort().tim_sort)
