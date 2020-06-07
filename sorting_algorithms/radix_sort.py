@@ -25,6 +25,8 @@ class Sort:
         return sortedNegativeArr, self.array_access_count#posAccess + negAccess + negArrLen
 
     def sort(self, nums):
+        if(len(nums) == 0):
+            return [], 0
         # step 1: find the max num
         max = nums[0]
         for j in range(0, len(nums)):
