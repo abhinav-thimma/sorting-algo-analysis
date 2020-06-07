@@ -12,6 +12,9 @@ from sorting_algorithms.shell_sort import Sort as ShellSort
 from sorting_algorithms.tree_sort import Sort as TreeSort
 from sorting_algorithms.tim_sort import Sort as TimSort
 
+from data import mongo_setup
+import services.data_service as svc
+
 import time
 
 def check_sorting(nums):
@@ -69,6 +72,29 @@ def test_sort_algorithm_with_generated_arrays(sort_function, array_gen_map):
         t1 = time.process_time()
         print(f'Time for {name}\t: {str(t1 - t)}\t  Array access count: {str(access_count)}')
         
+def store_results(sort_map, array_gen_map):
+    # setting the mongo db connection
+    mongo_setup.global_init()
+    # iterating over each sort and array generator 
+    for sort_name, sort_function in sort_map.items():
+        sort_list = []
+        for array_type, array_generator in array_gen_map.items():
+            arrays = array_generator(1000, 1000)
+            # time difference in nano seconds
+            t = time.process_time() * (10**9)
+            access_count = 0
+            for arr in arrays:
+                sorted_arr, count = sort_function(arr.copy())
+                access_count += count
+                check_sorting(sorted_arr)
+            t1 = time.process_time() * (10**9)
+
+            array = svc.create_array(arrays, array_type)
+            sort = svc.create_sort(array, float(t1 - t), access_count)
+            sort_list.append(sort)
+            print(f'the time taken for {sort_name} using {array_type} arrays = {float(t1-t)}')
+        # storing the results in db
+        sorttime = svc.create_sort_time(sort_name, sort_list)
 
 sort_map = {}
 sort_map['selection_sort'] = SelectionSort().selection_sort
@@ -82,14 +108,15 @@ sort_map['quick_sort_iterative'] = QuickSort().quick_sort_iterative
 sort_map['gnome_sort'] = GnomeSort().gnome_sort
 sort_map['shell_sort'] = ShellSort().shell_sort
 sort_map['tree_sort'] = TreeSort().tree_sort
-sort_map['time_sort'] = TimSort().tim_sort
+sort_map['tim_sort'] = TimSort().tim_sort
 
 array_gen_map = {}
 array_gen_map['random'] = ArrayGenerator().get_random_arrays
-array_gen_map['random_sorted'] = ArrayGenerator().get_random_sorted_arrays
+# array_gen_map['random_sorted'] = ArrayGenerator().get_random_sorted_arrays
 array_gen_map['linear'] = ArrayGenerator().get_linear_arrays
 
 # time_sort_algorithms(sort_map)
 # test_sort_algorithm_raw(TimSort().tim_sort, 5)
 # test_sort_algorithm_with_generated_arrays(TimSort().tim_sort, array_gen_map)
 # compare_sorts(QuickSort().quick_sort_iterative, TimSort().tim_sort)
+store_results(sort_map, array_gen_map)
