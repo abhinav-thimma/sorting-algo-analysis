@@ -16,3 +16,6 @@ class SortTime(me.Document):
         'db_alias': 'sortdb',
         'collection': 'sort_times'
     }
+
+    def __str__(self):
+        return f" name = {self.name} sorts = {self.sorts}"

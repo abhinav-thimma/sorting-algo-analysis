@@ -20,4 +20,7 @@ class Array(me.Document):
         'db_alias': 'sortdb',
         'collection': 'arrays'
     }
+
+    def __str__(self):
+        return f"array_type = {self.array_type} array_list = {self.array_list}"
     

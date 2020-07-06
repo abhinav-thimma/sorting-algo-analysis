@@ -22,3 +22,6 @@ class Sort(me.Document):
         'db_alias': 'sortdb',
         'collection': 'sorts'
     }
+
+    def __str__(self):
+        return f"array_id = {self.array_id} time_to_sort = {self.time_to_sort} array_access_count = {self.array_access_count}"

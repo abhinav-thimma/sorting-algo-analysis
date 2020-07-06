@@ -148,3 +148,5 @@ def driver():
     # test_sort_algorithm_with_generated_arrays(TimSort().tim_sort, array_gen_map)
     # compare_sorts(QuickSort().quick_sort_iterative, TimSort().tim_sort)
     store_results(sort_map, array_gen_map)
+
+# driver()
