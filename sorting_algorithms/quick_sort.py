@@ -4,15 +4,48 @@ sys.setrecursionlimit(1500)
 
 class Sort:
     array_access_count = 0
-    def quick_sort(self, nums, start, end):
+    '''
+    recursive version of quick sort algorithm
+    '''
+    def quick_sort_recursive(self, nums):
+        self.array_access_count = 0
+        return self.sort(nums, 0, len(nums) - 1)
+
+    def sort(self, nums, start, end):
         if(len(nums) <= 1):
             return nums
 
         if(start < end):
             pivotPosition = self.partition(nums, start, end)
-            self.quick_sort(nums, start, pivotPosition - 1)
-            self.quick_sort(nums, pivotPosition +1, end)
+            self.sort(nums, start, pivotPosition - 1)
+            self.sort(nums, pivotPosition +1, end)
 
+        return nums, self.array_access_count
+
+    '''
+    iterative version of quick-sort which solves recursion depth issues
+    '''
+    def quick_sort_iterative(self, nums):
+        self.array_access_count = 0
+        stack = [] 
+        stack.append(0)
+        stack.append(len(nums) - 1)
+        top = 1
+
+        while(len(stack) > 1):
+            end = stack.pop()
+            start = stack.pop()
+
+            # partition the array based on these values
+            pivotPosition = self.partition(nums, start, end)
+
+            if(pivotPosition - 1 > start):
+                stack.append(start)
+                stack.append(pivotPosition - 1)
+            
+            if(pivotPosition + 1 < end):
+                stack.append(pivotPosition + 1)
+                stack.append(end)
         return nums, self.array_access_count
 
     '''

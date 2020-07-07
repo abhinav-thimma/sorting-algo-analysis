@@ -1,13 +1,17 @@
 class Sort:
     array_access_count = 0
     def merge_sort(self, nums):
+        self.array_access_count = 0
+        return self.sort(nums)
+
+    def sort(self, nums):
         if(len(nums) <= 1):
             return nums
         
         self.array_access_count += len(nums)
-        leftArr = self.merge_sort(nums[:int(len(nums)/2)])
+        leftArr = self.sort(nums[:int(len(nums)/2)])
         leftArr = leftArr if isinstance(leftArr, list) else leftArr[0]
-        rightArr = self.merge_sort(nums[int(len(nums)/2):])
+        rightArr = self.sort(nums[int(len(nums)/2):])
         rightArr = rightArr if isinstance(rightArr, list) else rightArr[0]
         return self.merge_arrs(leftArr, rightArr), self.array_access_count
     
