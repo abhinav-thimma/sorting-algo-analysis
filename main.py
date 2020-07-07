@@ -150,3 +150,5 @@ def driver():
     store_results(sort_map, array_gen_map)
 
 # driver()
+# mongo_setup.global_init()
+# print(svc.get_data_for_algo('selection_sort'))

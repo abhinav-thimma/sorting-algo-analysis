@@ -17,5 +17,3 @@ class Sort:
             if(nums[i] > nums[i+1]):
                 return False
         return True
-
-print(Sort().bead_sort([5,2,1,3,1]))

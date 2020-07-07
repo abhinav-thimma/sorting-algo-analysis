@@ -20,7 +20,7 @@ def create_sort(array: Array, time_to_sort, array_access_count):
     sort = Sort()
     sort.time_to_sort = time_to_sort
     sort.array_access_count = array_access_count
-    sort.array_id = array.id
+    sort.array = array
 
     sort.save()
     return sort
@@ -31,7 +31,7 @@ Creates an SortTime entity and stores in DB
 def create_sort_time(name, sorts):
     sorttime = SortTime()
     sorttime.name = name
-    sorttime.sorts = [sort.id for sort in sorts]
+    sorttime.sorts = sorts
 
     sorttime.save()
     return sorttime
@@ -40,16 +40,16 @@ def create_sort_time(name, sorts):
 Fetch Arrays using array_type
 '''
 def fetch_arrays_using_type(array_type):
-    return Array.objects(array_type = array_type)
+    return Array.objects(array_type = array_type).get()
 
 '''
 Fetch SortTime using name
 '''
 def fetch_sorttime_using_name(name):
-    return SortTime.objects(name = name)
+    return SortTime.objects(name = name).get()
 
 '''
 Fetch Sort using id
 '''
 def fetch_sort(id):
-    return Sort.objects(id = id)
+    return Sort.objects(id = id).get()

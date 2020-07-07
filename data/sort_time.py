@@ -1,5 +1,5 @@
 import mongoengine as me
-
+from .sort import Sort
 '''
 {
     "SortTime": {
@@ -10,7 +10,7 @@ import mongoengine as me
 '''
 class SortTime(me.Document):
     name = me.StringField(required=True)
-    sorts = me.ListField()
+    sorts = me.ListField(me.ReferenceField(Sort))
 
     meta = {
         'db_alias': 'sortdb',
