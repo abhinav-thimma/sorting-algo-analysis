@@ -1,7 +1,9 @@
 class Sort:
     array_access_count = 0
-    def merge_sort(self, nums):
+    comparator = lambda x, y: (x < y)
+    def merge_sort(self, nums, order = 'asc'):
         self.array_access_count = 0
+        self.comparator = lambda x, y: (x < y)  if (order == 'asc') else (x > y)
         return self.sort(nums)
 
     def sort(self, nums):
@@ -22,7 +24,7 @@ class Sort:
         l, r = 0, 0
         sorted_arr = []
         while(l < len(leftArr) and r < len(rightArr)):
-            if leftArr[l] < rightArr[r]:
+            if(self.comparator(leftArr[l], rightArr[r])):
                 sorted_arr.append(leftArr[l])
                 l+=1
             else:

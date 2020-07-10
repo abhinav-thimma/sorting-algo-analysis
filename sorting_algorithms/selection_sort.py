@@ -1,9 +1,6 @@
 class Sort:
-    def selection_sort(self, nums, direction = 'asc'):
-        if (direction == 'asc'):
-            comparator = lambda x, y: (x < y)  
-        else:
-            comparator = lambda x, y: (x > y)
+    def selection_sort(self, nums, order = 'asc'):
+        comparator = lambda x, y: (x < y)  if (order == 'asc') else (x > y)
         array_access_count = 0
         for i in range(0, len(nums) - 1):
             min, pos = nums[i], i

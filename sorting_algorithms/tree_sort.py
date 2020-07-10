@@ -10,7 +10,7 @@ class TreeNode:
 class BST:
     root: TreeNode = None
 
-    def insertNode(self, val:int):
+    def insertNode(self, val:int, comparator):
         node = TreeNode(val, None, None)
         # first node
         if(self.root == None):
@@ -20,11 +20,11 @@ class BST:
         pointer, parent = self.root, self.root
         while(pointer!= None and (pointer.left != None or pointer.right != None)):
             parent = pointer
-            pointer = pointer.left if(pointer.val > val) else pointer.right
+            pointer = pointer.left if(comparator(val, pointer.val)) else pointer.right
 
         pointer = pointer if(pointer != None) else parent
         
-        if(pointer.val > val):
+        if(comparator(val, pointer.val)):
             pointer.left = node
         else:
             pointer.right = node
@@ -45,10 +45,11 @@ class BST:
         return str(self.root)
 
 class Sort:
-    def tree_sort(self, nums):
+    def tree_sort(self, nums, order = 'asc'):
+        comparator = lambda x, y: (x < y)  if (order == 'asc') else (x > y)
         bst, array_access_count = BST(), 0
         for num in nums:
-            bst.insertNode(num)
+            bst.insertNode(num, comparator)
             array_access_count += 1
         # inorder traversal takes n array accesses
         array_access_count += len(nums)
