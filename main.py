@@ -21,9 +21,10 @@ import time
 This method checks if an array is sorted correctly (ascending order)
 Inputs:     nums: array to check sorting on
 '''
-def check_sorting(nums):
+def check_sorting(nums, order = 'asc'):
+    comparator = lambda x, y: (x > y)  if (order == 'asc') else (x < y)
     for i in range(1, len(nums)):
-        if(nums[i-1] > nums[i]):
+        if(comparator(nums[i-1], nums[i])):
             print('NOT_SORTED')
             return None
     return nums

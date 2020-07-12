@@ -4,19 +4,19 @@ class Sort:
     SPLIT_SIZE = 32
     array_access_count = 0
 
-    def insertion_sort(self, nums, left, right):
+    def insertion_sort(self, nums, left, right, comparator):
         if(left < right):
             for i in range(left + 1, right + 1):
                 j, curr = i-1, nums[i]
                 self.array_access_count+=1
-                while j>=left and nums[j] > curr:
+                while j>=left and comparator(curr, nums[j]):
                     nums[j+1] = nums[j]
                     self.array_access_count+=2
                     j = j-1
                 nums[j + 1] = curr
                 self.array_access_count+=1
     
-    def merge(self, nums, left, mid, right):
+    def merge(self, nums, left, mid, right, comparator):
         left_arr = nums[left:mid]
         right_arr = nums[mid:right+1]
         self.array_access_count+=(right - left + 1)
@@ -24,7 +24,7 @@ class Sort:
         l_idx, r_idx, m_idx = 0, 0, 0
 
         while((l_idx < len(left_arr)) and (r_idx < len(right_arr))):
-            if(left_arr[l_idx] <= right_arr[r_idx]):
+            if(comparator(left_arr[l_idx], right_arr[r_idx])):
                 merged_arr.append(left_arr[l_idx])
                 l_idx+=1
             else:
@@ -44,7 +44,7 @@ class Sort:
     '''
     memory efficient merge of sorted arrays
     '''
-    def merge_in_place(self, nums, left, mid, right):
+    def merge_in_place(self, nums, left, mid, right, comparator):
         left_size = mid - left
         right_size = right - mid
 
@@ -52,7 +52,7 @@ class Sort:
         l_idx, m_idx, r_idx = 0, left, mid
 
         while((l_idx < len(left_arr)) and (mid <= r_idx <= right)):
-            if(left_arr[l_idx] <= nums[r_idx]):
+            if(comparator(left_arr[l_idx], nums[r_idx])):
                 nums[m_idx] = left_arr[l_idx]
                 m_idx+=1
                 l_idx+=1
@@ -70,11 +70,13 @@ class Sort:
             r_idx+=1
             m_idx+=1
 
-    def tim_sort(self, nums):
+    def tim_sort(self, nums, order = 'asc'):
         self.array_access_count = 0
+        comparator = lambda x, y: (x < y)  if (order == 'asc') else (x > y)
+        comparator_merge = lambda x, y: (x <= y)  if (order == 'asc') else (x > y)
         # sorting sub arrays of SPLIT_SIZE length
         for i in range(0, len(nums), self.SPLIT_SIZE):
-            self.insertion_sort(nums, i, min(len(nums)-1, i+self.SPLIT_SIZE-1))
+            self.insertion_sort(nums, i, min(len(nums)-1, i+self.SPLIT_SIZE-1), comparator)
 
         # merging adjacent subdivided arrays with increasing range
         batch_range = self.SPLIT_SIZE
@@ -82,6 +84,6 @@ class Sort:
             for i in range(0, len(nums), 2*batch_range):
                 left, right = i, min(i+2*batch_range -1, len(nums)-1)
                 mid = left + batch_range
-                self.merge_in_place(nums, left, mid, right)
+                self.merge_in_place(nums, left, mid, right, comparator_merge)
             batch_range*=2
         return nums, self.array_access_count
