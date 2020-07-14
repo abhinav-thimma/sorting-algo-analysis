@@ -1,5 +1,7 @@
 class Sort:
     def cocktail_sort(self, nums, order = 'asc'):
+        if(nums == None):
+            return None, 0
         array_access_count = 0
         comparator = lambda x, y: (x < y)  if (order == 'asc') else (x > y)
         for i in range(len(nums)):

@@ -2,6 +2,8 @@ class Sort:
     array_access_count = 0
     comparator = lambda x, y: (x < y)
     def merge_sort(self, nums, order = 'asc'):
+        if(nums == None):
+            return None, 0
         self.array_access_count = 0
         self.comparator = lambda x, y: (x < y)  if (order == 'asc') else (x > y)
         return self.sort(nums)

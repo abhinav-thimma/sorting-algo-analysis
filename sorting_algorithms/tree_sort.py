@@ -46,6 +46,8 @@ class BST:
 
 class Sort:
     def tree_sort(self, nums, order = 'asc'):
+        if(nums == None):
+            return None, 0
         comparator = lambda x, y: (x < y)  if (order == 'asc') else (x > y)
         bst, array_access_count = BST(), 0
         for num in nums:

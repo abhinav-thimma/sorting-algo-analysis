@@ -26,8 +26,8 @@ class TestSorts(unittest.TestCase):
                 print('NOT_SORTED')
                 return None
         return nums
-
-    def test_sort(self):
+    
+    def get_sort_map(self):
         sort_map = {}
         sort_map['selection_sort'] = SelectionSort().selection_sort
         sort_map['bubble_sort'] = BubbleSort().bubble_sort
@@ -41,8 +41,36 @@ class TestSorts(unittest.TestCase):
         sort_map['shell_sort'] = ShellSort().shell_sort
         sort_map['tree_sort'] = TreeSort().tree_sort
         sort_map['tim_sort'] = TimSort().tim_sort
+    
+        return sort_map
+
+    def test_sort_null(self):
+        sort_map = self.get_sort_map() 
 
         for key, sort_function in sort_map.items():
+            print(f'testing null array for {key}')
+            for i in range(1000):
+                arr = None
+                self.assertEqual(sort_function(arr), (None, 0))
+                self.assertEqual(sort_function(arr, order = 'asc'), (None, 0))
+                self.assertEqual(sort_function(arr, order = 'desc'), (None, 0))
+    
+    def test_sort_empty(self):
+        sort_map = self.get_sort_map() 
+
+        for key, sort_function in sort_map.items():
+            print(f'testing empty array for {key}')
+            for i in range(1000):
+                arr = []
+                self.assertEqual(sort_function(arr), ([], 0))
+                self.assertEqual(sort_function(arr, order = 'asc'), ([], 0))
+                self.assertEqual(sort_function(arr, order = 'desc'), ([], 0))
+
+    def test_sort(self):
+        sort_map = self.get_sort_map()
+
+        for key, sort_function in sort_map.items():
+            print(f'testing random array for {key}')
             for i in range(1000):
                 arr = np.random.randint(-1000, 1000, size = 100).tolist()
                 self.assertEqual(sort_function(arr.copy())[0], sorted(arr))

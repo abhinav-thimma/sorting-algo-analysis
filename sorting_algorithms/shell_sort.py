@@ -1,5 +1,7 @@
 class Sort:
     def shell_sort(self, nums, order = 'asc'):
+        if(nums == None):
+            return None, 0
         array_access_count = 0
         comparator = lambda x, y: (x < y)  if (order == 'asc') else (x > y)
         gap = int(len(nums)/2)
