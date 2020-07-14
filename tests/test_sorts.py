@@ -19,14 +19,6 @@ from sorting_algorithms.tree_sort import Sort as TreeSort
 from sorting_algorithms.tim_sort import Sort as TimSort
 
 class TestSorts(unittest.TestCase):
-    def is_sorted(self, nums, order = 'asc'):
-        comparator = lambda x, y: (x > y)  if (order == 'asc') else (x < y)
-        for i in range(1, len(nums)):
-            if(comparator(nums[i-1], nums[i])):
-                print('NOT_SORTED')
-                return None
-        return nums
-    
     def get_sort_map(self):
         sort_map = {}
         sort_map['selection_sort'] = SelectionSort().selection_sort

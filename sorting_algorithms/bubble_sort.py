@@ -1,7 +1,7 @@
 class Sort:
     def bubble_sort(self, nums, order = 'asc'):
-        if(nums == None):
-            return None, 0
+        if(nums == None or len(nums) < 1):
+            return nums, 0
         comparator = lambda x, y: (x < y)  if (order == 'asc') else (x > y)
         array_access_count = 0
         for i in range(len(nums)):

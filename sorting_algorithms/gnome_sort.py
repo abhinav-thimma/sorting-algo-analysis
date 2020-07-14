@@ -1,7 +1,7 @@
 class Sort:
     def gnome_sort(self, nums, order = 'asc'):
-        if(nums == None):
-            return None, 0
+        if(nums == None or len(nums) < 1):
+            return nums, 0
         array_access_count, currIdx = 0, 1
         comparator = lambda x, y: (x < y)  if (order == 'asc') else (x > y)
         while currIdx < len(nums):

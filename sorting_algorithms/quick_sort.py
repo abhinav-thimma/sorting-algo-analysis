@@ -9,8 +9,8 @@ class Sort:
     recursive version of quick sort algorithm
     '''
     def quick_sort_recursive(self, nums, order = 'asc'):
-        if(nums == None):
-            return None, 0
+        if(nums == None or len(nums) < 1):
+            return nums, 0
         comparator = lambda x, y: (x <= y)  if (order == 'asc') else (x >= y)
         self.array_access_count = 0
         return self.sort(nums, 0, len(nums) - 1, comparator)
@@ -31,8 +31,8 @@ class Sort:
     iterative version of quick-sort which solves recursion depth issues
     '''
     def quick_sort_iterative(self, nums, order = 'asc'):
-        if(nums == None):
-            return None, 0
+        if(nums == None or len(nums) < 1):
+            return nums, 0
         comparator = lambda x, y: (x <= y)  if (order == 'asc') else (x >= y)
         self.array_access_count = 0
         stack = [] 
