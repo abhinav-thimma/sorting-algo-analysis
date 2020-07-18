@@ -1,5 +1,7 @@
 class Sort:
     def insertion_sort(self, nums, order = 'asc'):
+        if(nums == None or len(nums) < 1):
+            return nums, 0
         comparator = lambda x, y: (x < y)  if (order == 'asc') else (x > y)
         array_access_count = 0
         for i in range(1, len(nums)):

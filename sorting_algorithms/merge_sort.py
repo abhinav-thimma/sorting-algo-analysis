@@ -2,13 +2,15 @@ class Sort:
     array_access_count = 0
     comparator = lambda x, y: (x < y)
     def merge_sort(self, nums, order = 'asc'):
+        if(nums == None or len(nums) < 1):
+            return nums, 0
         self.array_access_count = 0
         self.comparator = lambda x, y: (x < y)  if (order == 'asc') else (x > y)
         return self.sort(nums)
 
     def sort(self, nums):
         if(len(nums) <= 1):
-            return nums
+            return nums, 0
         
         self.array_access_count += len(nums)
         leftArr = self.sort(nums[:int(len(nums)/2)])
