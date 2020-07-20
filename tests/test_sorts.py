@@ -36,6 +36,9 @@ class TestSorts(unittest.TestCase):
     
         return sort_map
 
+    '''
+    tests the sorting algorithm result on null arrays
+    '''
     def test_sort_null(self):
         sort_map = self.get_sort_map() 
 
@@ -47,6 +50,9 @@ class TestSorts(unittest.TestCase):
                 self.assertEqual(sort_function(arr, order = 'asc'), (None, 0))
                 self.assertEqual(sort_function(arr, order = 'desc'), (None, 0))
     
+    '''
+    tests the sorting algorithm result on empty arrays
+    '''
     def test_sort_empty(self):
         sort_map = self.get_sort_map() 
 
@@ -58,6 +64,9 @@ class TestSorts(unittest.TestCase):
                 self.assertEqual(sort_function(arr, order = 'asc'), ([], 0))
                 self.assertEqual(sort_function(arr, order = 'desc'), ([], 0))
 
+    '''
+    tests the sorting in both ascending and descing order for the sorting algorithms
+    '''
     def test_sort(self):
         sort_map = self.get_sort_map()
 
